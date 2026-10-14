@@ -4,6 +4,14 @@ import kotlin.system.exitProcess
 
 class CliManager {
   fun parseArguments(args: Array<String>): CliOptions? {
+    // Проверка на неизвестные флаги
+    val validFlags = setOf("-l", "--login", "-p", "--password", "-a", "--action", "-r", "--resource", "-v", "--volume", "-h", "--help")
+    for (arg in args) {
+      if (arg.startsWith("-") && arg !in validFlags) {
+        showHelpAndExit()
+      }
+    }
+
     if (args.contains("-h") || args.contains("--help") || args.isEmpty()) {
       showHelpAndExit()
     }
