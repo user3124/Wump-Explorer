@@ -1,3 +1,4 @@
 #!/bin/bash
+# kotlinc сам обходит вложенные папки (domain/, services/, infrastructure/)
 mkdir -p ../output
-kotlinc ../src/*.kt -cp ../lib/kotlinx-cli-jvm-0.3.6.jar -include-runtime -d ../output/app.jar
+kotlinc ../src -cp ../lib/kotlinx-cli-jvm-0.3.6.jar -include-runtime -d ../output/app.jar

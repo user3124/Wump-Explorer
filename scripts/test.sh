@@ -1,8 +1,8 @@
 #!/bin/bash
-OK=0; TOTAL=10
+OK=0; TOTAL=14
 
 run_test() {
-    ./run.sh "$@" > /dev/null 2>&1
+    bash ./run.sh "$@" > /dev/null 2>&1
     local code=$?
     if [ $code -eq $expected ]; then
         echo "$name: OK"
@@ -41,5 +41,17 @@ run_test -l alice -p qwerty -a read -r A.B -v text
 
 name="Test 10 (Volume Exceeded)"; expected=8
 run_test -l alice -p qwerty -a read -r A.B.C -v 999
+
+name="Test 11 (Unknown Flag)"; expected=1
+run_test -l alice -x
+
+name="Test 12 (Flag Without Value)"; expected=1
+run_test -l alice -p qwerty -a read -r A.B -v
+
+name="Test 13 (Inherited Permission)"; expected=0
+run_test -l alice -p qwerty -a read -r A.B.C -v 10
+
+name="Test 14 (Bad Resource Format)"; expected=7
+run_test -l alice -p qwerty -a read -r A..B -v 1
 
 echo "Total: $OK/$TOTAL"

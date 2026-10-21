@@ -1,7 +1,9 @@
+package services
+
 import java.security.MessageDigest
 
-object SecurityUtils {
-    //Функция берет чистый пароль и соль, соединяет их и возвращает SHA-256 хэш в виде строки
+class SecurityService {
+    // Берёт пароль и соль, соединяет их и возвращает SHA-256 хэш в виде строки
     fun hashPassword(password: String, salt: String): String {
         val input = password + salt
         val digest = MessageDigest.getInstance("SHA-256")
